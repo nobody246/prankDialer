@@ -15,7 +15,6 @@
     (print i)
     (set! a (add1 a))
     (write-response inp a)))
-
 (let ((c 1))
   (define (y)
     (let ((cfg
