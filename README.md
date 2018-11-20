@@ -1,1 +1,1 @@
-For use with the baresip CID hack
+For use with the baresip CID hack found in my list of projects.
