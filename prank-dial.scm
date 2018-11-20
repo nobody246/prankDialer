@@ -31,7 +31,7 @@
     (write-line (sprintf "/dial ~A" target) outp)
     (sleep zz)
     (when hangup-after
-      (write-line (sprintf "/hangup call") outp)
+      (write-line "/hangup call" outp)
       (write-response inp))
     (set! c (add1 c))
     (y))
