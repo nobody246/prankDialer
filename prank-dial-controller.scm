@@ -6,7 +6,7 @@
   (when pid
     (process "kill" `("-9" ,pid)))
   (define-values (i o pid)
-    (process "csi" `("scambc.scm")))
+    (process "csi" `("prank-dial.scm")))
   (sleep zz)
   (x))
 (x)
