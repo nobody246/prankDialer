@@ -1,7 +1,6 @@
 (use posix s)
 (define target "15555551212")
 (define zz 15)
-(define min-time 10)
 (define hangup-after #t)
 (process-run "killall" `("-9" "baresip"))
 (sleep 2)
@@ -30,7 +29,7 @@
                                   outgoing-domain)))
     (print "Call # " c)
     (write-line (sprintf "/dial ~A" target) outp)
-    (sleep (random (+ min-time (random (- zz min-time)))))
+    (sleep zz)
     (when hangup-after
       (write-line (sprintf "/hangup call") outp)
       (write-response inp))
