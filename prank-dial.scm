@@ -1,7 +1,10 @@
 (use posix s)
-(define target "15555551212")
-(define zz 15)
-(define hangup-after #t)
+(define targets `("19005551212"
+                  "17005551212"))
+(define zz 2)
+(define hangup-after #f)
+(define dtmf 6)
+
 (process-run "killall" `("-9" "baresip"))
 (sleep 2)
 (define-values
@@ -27,11 +30,13 @@
                                   (+ 1000 (random 8999))
                                   outgoing-domain)))
     (print "Call # " c)
-    (write-line (sprintf "/dial ~A" target) outp)
+    (for-each (lambda(t)
+                (write-line
+                 (sprintf "/dial ~A" t) outp))
+              targets)
     (sleep zz)
     (when hangup-after
-      (write-line "/hangup call" outp)
-      (write-response inp))
+      (write-line "/hangup call" outp))
     (set! c (add1 c))
     (y))
   (y))
