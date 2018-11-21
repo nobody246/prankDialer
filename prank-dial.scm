@@ -2,22 +2,19 @@
 (define targets `("19005551212"
                   "17005551212"))
 (define zz 2)
-(define hangup-after #f)
-(define dtmf 6)
-
 (process-run "killall" `("-9" "baresip"))
-(sleep 2)
+(sleep 10)
 (define-values
   (inp outp pid)
   (process "baresip"))
 (define outgoing-domain "@aol.com")
-(define (write-response inp #!optional (a 0))
-  (and-let* ((i  (read-line inp))
-             (x  (not (eq? i #!eof)))
-             (x  (not (> a 10))))
-    (print i)
-    (set! a (add1 a))
-    (write-response inp a)))
+
+(define (hangup outp #!optional z)
+  (let ((z (if (not z) 0 z)))
+    (write-line "/hangup call" outp)
+    (when (< z (length targets))
+      (x (add1 z)))))
+
 (let ((c 1))
   (define (y)
     (let ((cfg
@@ -35,11 +32,8 @@
                  (sprintf "/dial ~A" t) outp))
               targets)
     (sleep zz)
-    (when hangup-after
-      (write-line "/hangup call" outp))
     (set! c (add1 c))
     (y))
-  (y))
-
+(y))
 
 
