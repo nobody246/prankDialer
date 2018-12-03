@@ -25,7 +25,8 @@
                                   (+ 200 (random 799))
                                   (+ 200 (random 799))
                                   (+ 1000 (random 8999))
-                                  outgoing-domain)))
+                                  outgoing-domain))
+         (file-close cfg))
     (print "Call # " c)
     (for-each (lambda(t)
                 (write-line
