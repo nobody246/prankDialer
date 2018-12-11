@@ -9,12 +9,6 @@
   (process "baresip"))
 (define outgoing-domain "@aol.com")
 
-(define (hangup outp #!optional z)
-  (let ((z (if (not z) 0 z)))
-    (write-line "/hangup call" outp)
-    (when (< z (length targets))
-      (x (add1 z)))))
-
 (let ((c 1))
   (define (y)
     (let ((cfg
