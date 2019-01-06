@@ -3,7 +3,7 @@
                   "17005551212"))
 (define zz 2)
 (process-run "killall" `("-9" "baresip"))
-(sleep 10)
+(sleep 2)
 (define-values
   (inp outp pid)
   (process "baresip"))
@@ -26,9 +26,12 @@
                 (write-line
                  (sprintf "/dial ~A" t) outp))
               targets)
+    (set! c (add1 c)))
+  (define (x)
+    (condition-case
+        ((lambda()
+           (y)))
+      ((exn) (print "Error in main file with baresip. Trying again")))
     (sleep zz)
-    (set! c (add1 c))
-    (y))
-(y))
-
-
+    (x))
+  (x))
