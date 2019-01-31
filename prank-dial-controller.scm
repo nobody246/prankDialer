@@ -2,17 +2,23 @@
 
 (define zz 120)
 (define pid #f)
+(define (reset)
+  (process "kill"
+           `("-9"
+             ,pid
+             "$(cat /run/user/1000/pulse/pid)"))
+  (process "pulseaudio" `("-D")))
 (define (x)
   (condition-case
       ((lambda() 
          (when pid
-           (process "kill" `("-9" ,pid))
-           (process "pulseaudio" `("-k"))
-           (sleep 1)
-           (process "pulseaudio" `("-D")))
+           (reset))
          (define-values (i o pid)
-           (process "csi" `("scambc.scm")))
+           (process "csi" `("prank-dial.scm")))
          (sleep zz)))
-    ((exn) (print "error in controller. trying again.")))
+    ((exn)
+     (print "error in controller. trying again.")
+     (reset)))
   (x))
 (x)
+  
