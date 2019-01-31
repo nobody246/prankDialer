@@ -31,7 +31,8 @@
     (condition-case
         ((lambda()
            (y)))
-      ((exn) (print "Error in main file with baresip. Trying again")))
+      ((exn) (print 
+              "Error placing call in prank-dial.scm. Trying again")))
     (sleep zz)
     (x))
   (x))
