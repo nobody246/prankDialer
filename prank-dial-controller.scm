@@ -1,7 +1,7 @@
 (use posix)
 
 (letrec
-    ((zz 16)
+    ((zz 120)
      (pid #f)
      (reset
       (lambda()
