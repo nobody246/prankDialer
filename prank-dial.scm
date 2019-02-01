@@ -9,30 +9,37 @@
   (process "baresip"))
 (define outgoing-domain "@aol.com")
 
-(let ((c 1))
-  (define (y)
-    (let ((cfg
-           (file-open
-            "/tmp/.cid_baresip"
-            (+ open/wronly open/creat))))
-         (file-write cfg (sprintf "sip:1~A~A~A~A"
-                                  (+ 200 (random 799))
-                                  (+ 200 (random 799))
-                                  (random 9999)
-                                  outgoing-domain))
-         (file-close cfg))
-    (print "Call # " c)
-    (for-each (lambda(t)
-                (write-line
-                 (sprintf "/dial ~A" t) outp))
-              targets)
-    (set! c (add1 c)))
+(letrec
+    ((c 1)
+     (y
+      (lambda()
+        (let ((cfg
+               (file-open
+                "/tmp/.cid_baresip"
+                (+ open/wronly open/creat))))
+          (file-write
+           cfg (sprintf "sip:1~A~A~A~A"
+                        (+ 200 (random 799))
+                        (+ 200 (random 799))
+                        (random 9999)
+                        outgoing-domain))
+          (file-close cfg))
+        (for-each
+         (lambda(t)
+           (write-line
+            (sprintf
+             "/dial ~A"
+             t)
+            outp))
+         targets)
+        (set! c (add1 c)))))
   (define (x)
     (condition-case
         ((lambda()
            (y)))
-      ((exn) (print 
-              "Error placing call in prank-dial.scm. Trying again")))
+      ((exn)
+       (print 
+        "Error placing call in prank-dial.scm. Trying again")))
     (sleep zz)
     (x))
   (x))
