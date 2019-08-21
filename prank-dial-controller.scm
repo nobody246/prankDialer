@@ -19,7 +19,7 @@
                (reset))
              (define-values
                (i o pid)
-               (process "csi" `("scambc.scm")))
+               (process "csi" `("prank-dial.scm")))
              (sleep zz)))
         ((exn)
          (print "error in controller. trying again.")
