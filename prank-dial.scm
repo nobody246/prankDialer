@@ -2,6 +2,7 @@
 (define targets `("19005551212"
                   "17005551212"))
 (define zz 2)
+
 (process-run "killall" `("-9" "baresip"))
 (sleep 2)
 (define-values
@@ -18,7 +19,7 @@
                 "/tmp/.cid_baresip"
                 (+ open/wronly open/creat))))
           (file-write
-           cfg 
+           cfg
            (sprintf "sip:1~A~A~A~A"
                     (+ 200 (random 799))
                     (+ 200 (random 799))
@@ -31,6 +32,9 @@
             (sprintf
              "/dial ~A"
              t)
+            outp)
+           (write-line
+            "/listcalls"
             outp))
          targets)
         (set! c (add1 c)))))
