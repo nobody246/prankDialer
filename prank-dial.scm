@@ -23,7 +23,7 @@
            (sprintf "sip:1~A~A~A~A"
                     (+ 200 (random 799))
                     (+ 200 (random 799))
-                    (random 9999)
+                    (+ 1000 (random 8999))
                     outgoing-domain))
           (file-close cfg))
         (for-each
